@@ -17,6 +17,7 @@ let Calculadora = {
     document.getElementById('9').onclick = this.imprimirNumeros
     document.getElementById('0').onclick = this.addCeros
     document.getElementById('on').onclick = this.limpiarPantalla
+    document.getElementById('punto').onclick = this.agregarPunto
   },
   presionarBoton: (event) => {
     if (event.target.classList[0] == 'tecla') {
@@ -41,6 +42,12 @@ let Calculadora = {
   limpiarPantalla: () => {
     display.innerHTML = '0'
     log = ''
+  },
+  agregarPunto: () => {
+    if (!display.innerHTML.includes('.')) {
+      display.innerHTML = log + '.'
+      log = log + '.'
+    }
   },
 }
 
