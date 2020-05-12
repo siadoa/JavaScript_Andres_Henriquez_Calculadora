@@ -1,21 +1,46 @@
 let teclado = document.getElementsByClassName('teclado')[0]
-
-const presionarBoton = () => {
-  teclado.addEventListener('mousedown', function (event) {
-    if (event.target.classList[0] == 'tecla') {
-      event.target.style.transform = 'scale(0.95, 0.95)'
-    }
-  })
-  teclado.addEventListener('mouseup', function (event) {
-    if (event.target.classList[0] == 'tecla') {
-      event.target.style.transform = 'scale(1, 1)'
-    }
-  })
-}
+let display = document.getElementById('display')
+let log = ''
 
 let Calculadora = {
   init: function () {
-    presionarBoton()
+    teclado.onmousedown = this.presionarBoton
+    teclado.onmouseup = this.soltarBoton
+    document.getElementById('1').onclick = this.imprimirNumeros
+    document.getElementById('2').onclick = this.imprimirNumeros
+    document.getElementById('3').onclick = this.imprimirNumeros
+    document.getElementById('4').onclick = this.imprimirNumeros
+    document.getElementById('5').onclick = this.imprimirNumeros
+    document.getElementById('6').onclick = this.imprimirNumeros
+    document.getElementById('7').onclick = this.imprimirNumeros
+    document.getElementById('8').onclick = this.imprimirNumeros
+    document.getElementById('9').onclick = this.imprimirNumeros
+    document.getElementById('0').onclick = this.addCeros
+    document.getElementById('on').onclick = this.limpiarPantalla
+  },
+  presionarBoton: (event) => {
+    if (event.target.classList[0] == 'tecla') {
+      event.target.style.transform = 'scale(0.95, 0.95)'
+    }
+  },
+  soltarBoton: (event) => {
+    if (event.target.classList[0] == 'tecla') {
+      event.target.style.transform = 'scale(1, 1)'
+    }
+  },
+  imprimirNumeros: (event) => {
+    display.innerHTML = log + event.target.alt
+    log = log + event.target.alt
+  },
+  addCeros: (event) => {
+    if (display.innerHTML !== '0') {
+      display.innerHTML = log + event.target.alt
+      log = log + event.target.alt
+    }
+  },
+  limpiarPantalla: () => {
+    display.innerHTML = '0'
+    log = ''
   },
 }
 
