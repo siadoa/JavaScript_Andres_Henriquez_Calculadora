@@ -89,7 +89,6 @@ const igualParaOperacionSencilla = () => {
 const igualParaOperacionSecuencia = () => {
   switch (op) {
     case 1:
-      num2 = Number(num2)
       resultado += num2
       if (resultado === Infinity || resultado === -Infinity) {
         display.innerHTML = 'Error'
@@ -99,7 +98,6 @@ const igualParaOperacionSecuencia = () => {
       break
 
     case 2:
-      num2 = Number(num2)
       resultado -= num2
       if (resultado === Infinity || resultado === -Infinity) {
         display.innerHTML = 'Error'
@@ -109,7 +107,6 @@ const igualParaOperacionSecuencia = () => {
       break
 
     case 3:
-      num2 = Number(num2)
       resultado *= num2
       if (resultado === Infinity || resultado === -Infinity) {
         display.innerHTML = 'Error'
@@ -119,7 +116,6 @@ const igualParaOperacionSecuencia = () => {
       break
 
     case 4:
-      num2 = Number(num2)
       resultado /= num2
       if (resultado === Infinity || resultado === -Infinity) {
         display.innerHTML = 'Error'
@@ -153,6 +149,7 @@ let Calculadora = {
     document.getElementById('dividido').onclick = this.operaciones
     document.getElementById('igual').onclick = this.igual
     document.onclick = this.numerosEnPantalla
+    document.getElementById('raiz').onclick = this.calcularRaiz
   },
   presionarBoton: (event) => {
     if (event.target.classList[0] == 'tecla') {
@@ -209,6 +206,12 @@ let Calculadora = {
       } else {
         igualParaOperacionSencilla()
       }
+    }
+  },
+  calcularRaiz: () => {
+    if (display.innerHTML !== '0') {
+      resultado = Math.sqrt(Number(display.innerHTML))
+      display.innerHTML = resultado
     }
   },
 }
