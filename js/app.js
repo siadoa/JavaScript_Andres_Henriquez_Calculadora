@@ -120,24 +120,32 @@ let Calculadora = {
           num2 = Number(num2)
           result = num1 + num2
           display.innerHTML = result
+          num1 = result
+          num2 = ''
           break
 
         case 2:
           num2 = Number(num2)
           result = num1 - num2
           display.innerHTML = result
+          num1 = result
+          num2 = ''
           break
 
         case 3:
           num2 = Number(num2)
           result = num1 * num2
           display.innerHTML = result
+          num1 = result
+          num2 = ''
           break
 
         case 4:
           num2 = Number(num2)
           result = num1 / num2
           display.innerHTML = result
+          num1 = result
+          num2 = ''
           break
 
         default:
