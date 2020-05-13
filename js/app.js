@@ -21,7 +21,7 @@ let Calculadora = {
     document.getElementById('0').onclick = this.addCeros
     document.getElementById('on').onclick = this.limpiarPantalla
     document.getElementById('punto').onclick = this.agregarPunto
-    // document.getElementById('sign').onclick = this.cambiarSigno
+    document.getElementById('sign').onclick = this.cambiarSigno
     document.getElementById('mas').onclick = this.operaciones
     document.getElementById('menos').onclick = this.operaciones
     document.getElementById('por').onclick = this.operaciones
@@ -147,13 +147,20 @@ let Calculadora = {
           num1 = result
           num2 = ''
           break
-
-        default:
-          break
       }
     }
   },
-  cambiarSigno: () => {},
+  cambiarSigno: () => {
+    if (op === 0) {
+      num1 = Number(num1)
+      num1 = num1 * -1
+      display.innerHTML = num1
+    } else {
+      num2 = Number(num2)
+      num2 = num2 * -1
+      display.innerHTML = num2
+    }
+  },
   limiteEnPantalla: () => {
     if (display.innerHTML.length >= 8) {
       display.innerHTML = display.innerHTML.slice(0, 8)
