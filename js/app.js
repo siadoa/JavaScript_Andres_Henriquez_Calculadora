@@ -1,9 +1,134 @@
 let teclado = document.getElementsByClassName('teclado')[0]
 let display = document.getElementById('display')
-let num1 = ''
-let num2 = ''
-let op = 0
-let result = 0
+let num1 = '',
+  num2 = '',
+  op = 0,
+  resultado = 0,
+  expresion = ''
+
+const seleccionarOperacion = () => {
+  switch (event.target.id) {
+    case 'dividido':
+      op = 4
+      num1 = Number(display.innerHTML)
+      display.innerHTML = ''
+      expresion = expresion + '/'
+      break
+
+    case 'por':
+      op = 3
+      num1 = Number(display.innerHTML)
+      display.innerHTML = ''
+      expresion = expresion + '*'
+      break
+
+    case 'menos':
+      op = 2
+      num1 = Number(display.innerHTML)
+      display.innerHTML = ''
+      expresion = expresion + '-'
+      break
+
+    case 'mas':
+      op = 1
+      num1 = Number(display.innerHTML)
+      display.innerHTML = ''
+      expresion = expresion + '+'
+      break
+
+    default:
+      op = 0
+      break
+  }
+}
+
+const igualParaOperacionSencilla = () => {
+  switch (op) {
+    case 1:
+      num2 = Number(display.innerHTML)
+      resultado = num1 + num2
+      if (resultado === Infinity || resultado === -Infinity) {
+        display.innerHTML = 'Error'
+      } else {
+        display.innerHTML = resultado
+      }
+      break
+
+    case 2:
+      num2 = Number(display.innerHTML)
+      resultado = num1 - num2
+      if (resultado === Infinity || resultado === -Infinity) {
+        display.innerHTML = 'Error'
+      } else {
+        display.innerHTML = resultado
+      }
+      break
+
+    case 3:
+      num2 = Number(display.innerHTML)
+      resultado = num1 * num2
+      if (resultado === Infinity || resultado === -Infinity) {
+        display.innerHTML = 'Error'
+      } else {
+        display.innerHTML = resultado
+      }
+      break
+
+    case 4:
+      num2 = Number(display.innerHTML)
+      resultado = num1 / num2
+      if (resultado === Infinity || resultado === -Infinity) {
+        display.innerHTML = 'Error'
+      } else {
+        display.innerHTML = resultado
+      }
+      break
+  }
+}
+
+const igualParaOperacionSecuencia = () => {
+  switch (op) {
+    case 1:
+      num2 = Number(num2)
+      resultado += num2
+      if (resultado === Infinity || resultado === -Infinity) {
+        display.innerHTML = 'Error'
+      } else {
+        display.innerHTML = resultado
+      }
+      break
+
+    case 2:
+      num2 = Number(num2)
+      resultado -= num2
+      if (resultado === Infinity || resultado === -Infinity) {
+        display.innerHTML = 'Error'
+      } else {
+        display.innerHTML = resultado
+      }
+      break
+
+    case 3:
+      num2 = Number(num2)
+      resultado *= num2
+      if (resultado === Infinity || resultado === -Infinity) {
+        display.innerHTML = 'Error'
+      } else {
+        display.innerHTML = resultado
+      }
+      break
+
+    case 4:
+      num2 = Number(num2)
+      resultado /= num2
+      if (resultado === Infinity || resultado === -Infinity) {
+        display.innerHTML = 'Error'
+      } else {
+        display.innerHTML = resultado
+      }
+      break
+  }
+}
 
 let Calculadora = {
   init: function () {
@@ -18,7 +143,7 @@ let Calculadora = {
     document.getElementById('7').onclick = this.imprimirNumeros
     document.getElementById('8').onclick = this.imprimirNumeros
     document.getElementById('9').onclick = this.imprimirNumeros
-    document.getElementById('0').onclick = this.addCeros
+    document.getElementById('0').onclick = this.imprimirNumeros
     document.getElementById('on').onclick = this.limpiarPantalla
     document.getElementById('punto').onclick = this.agregarPunto
     document.getElementById('sign').onclick = this.cambiarSigno
@@ -27,6 +152,7 @@ let Calculadora = {
     document.getElementById('por').onclick = this.operaciones
     document.getElementById('dividido').onclick = this.operaciones
     document.getElementById('igual').onclick = this.igual
+    document.onclick = this.numerosEnPantalla
   },
   presionarBoton: (event) => {
     if (event.target.classList[0] == 'tecla') {
@@ -39,131 +165,50 @@ let Calculadora = {
     }
   },
   imprimirNumeros: (event) => {
-    if (op === 0) {
-      num1 = num1 + event.target.id
-      display.innerHTML = num1
+    if (display.innerHTML === '0') {
+      display.innerHTML = event.target.id
     } else {
-      num2 = num2 + event.target.id
-      display.innerHTML = num2
-    }
-  },
-  addCeros: (event) => {
-    if (op === 0) {
-      if (display.innerHTML !== '0') {
-        num1 = num1 + event.target.id
-        display.innerHTML = num1
-      }
-    } else {
-      if (display.innerHTML !== '0') {
-        num2 = num2 + event.target.id
-        display.innerHTML = num2
-      }
+      display.innerHTML += event.target.id
     }
   },
   limpiarPantalla: () => {
     display.innerHTML = '0'
     op = 0
+    resultado = 0
     num1 = ''
     num2 = ''
+    expresion = ''
   },
   agregarPunto: () => {
-    if (op === 0) {
-      if (!display.innerHTML.includes('.')) {
-        num1 = num1 + '.'
-        display.innerHTML = num1
-      }
-    } else {
-      if (!display.innerHTML.includes('.')) {
-        num2 = num2 + '.'
-        display.innerHTML = num2
-      }
-    }
-  },
-
-  operaciones: (event) => {
-    if (display.innerHTML !== '0') {
-      switch (event.target.id) {
-        case 'dividido':
-          op = 4
-          display.innerHTML = ''
-          num1 = Number(num1)
-          break
-
-        case 'por':
-          op = 3
-          display.innerHTML = ''
-          num1 = Number(num1)
-          break
-
-        case 'menos':
-          op = 2
-          display.innerHTML = ''
-          num1 = Number(num1)
-          break
-
-        case 'mas':
-          op = 1
-          display.innerHTML = ''
-          num1 = Number(num1)
-          break
-
-        default:
-          op = 0
-          break
-      }
-    }
-  },
-  igual: () => {
-    if (op !== 0) {
-      switch (op) {
-        case 1:
-          num2 = Number(num2)
-          result = num1 + num2
-          display.innerHTML = result
-          num1 = result
-          num2 = ''
-          break
-
-        case 2:
-          num2 = Number(num2)
-          result = num1 - num2
-          display.innerHTML = result
-          num1 = result
-          num2 = ''
-          break
-
-        case 3:
-          num2 = Number(num2)
-          result = num1 * num2
-          display.innerHTML = result
-          num1 = result
-          num2 = ''
-          break
-
-        case 4:
-          num2 = Number(num2)
-          result = num1 / num2
-          display.innerHTML = result
-          num1 = result
-          num2 = ''
-          break
+    if (!display.innerHTML.includes('.')) {
+      if (display.innerHTML === '') {
+        display.innerHTML += '0.'
+      } else {
+        display.innerHTML += '.'
       }
     }
   },
   cambiarSigno: () => {
-    if (op === 0) {
-      num1 = Number(num1)
-      num1 = num1 * -1
-      display.innerHTML = num1
-    } else {
-      num2 = Number(num2)
-      num2 = num2 * -1
-      display.innerHTML = num2
-    }
+    display.innerHTML = Number(display.innerHTML) * -1
   },
-  limiteEnPantalla: () => {
+  numerosEnPantalla: () => {
     if (display.innerHTML.length >= 8) {
       display.innerHTML = display.innerHTML.slice(0, 8)
+    }
+  },
+  operaciones: () => {
+    if (display.innerHTML !== '0') {
+      seleccionarOperacion()
+    }
+  },
+  igual: () => {
+    if (op !== 0) {
+      expresion = expresion + '='
+      if (expresion.endsWith('==')) {
+        igualParaOperacionSecuencia()
+      } else {
+        igualParaOperacionSencilla()
+      }
     }
   },
 }
