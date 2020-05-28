@@ -130,6 +130,8 @@ let Calculadora = {
   init: function () {
     teclado.onmousedown = this.presionarBoton
     teclado.onmouseup = this.soltarBoton
+    teclado.ontouchstart = this.presionarBoton
+    teclado.ontouchend = this.soltarBoton
     document.getElementById('1').onclick = this.imprimirNumeros
     document.getElementById('2').onclick = this.imprimirNumeros
     document.getElementById('3').onclick = this.imprimirNumeros
